@@ -1,12 +1,22 @@
 #	-*-	mode:	ruby	-*-
 #	vi:	set	ft=ruby	:
 VAGRANTFILE_API_VERSION	=	"2"
-Vagrant.configure(VAGRANTFILE_API_VERSION)	do	|config|
-		config.vm.define	"testvm"	do	|testvm|
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+		config.vm.define "testvm" do |testvm|
 				testvm.vm.box = "puphpet/centos65-x64"
 				testvm.vm.network :private_network,ip:"192.168.56.2"
+				
+#				testvm.vm.provision "ansible" do |ansible|
+#					ansible.playbook = "webserver.yml"
+#					ansible.verbose = "vvv"
+#				end
 		end
+                config.vm.define "ubuntu64" do |ubuntu64|
+                                ubuntu64.vm.box = "ubuntu/trusty64"
+                                ubuntu64.vm.network :private_network,ip:"192.168.56.3"
+                end
+
 		config.vm.provider "virtualbox" do |v|
-				v.customize	["modifyvm", :id, "--memory",	"1024"]
+				v.customize	["modifyvm", :id, "--memory",	"512"]
 		end
 end
