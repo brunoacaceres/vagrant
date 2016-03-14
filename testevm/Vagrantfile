@@ -16,7 +16,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                                 ubuntu64.vm.network :private_network,ip:"192.168.56.3"
                 end
 
+                config.vm.define "ubuntudesk" do |ubuntudesk|
+                                ubuntudesk.vm.box = "box-cutter/ubuntu1404-desktop"
+                                ubuntudesk.vm.network :private_network,ip:"192.168.56.4"
+                end
+
+
 		config.vm.provider "virtualbox" do |v|
-				v.customize	["modifyvm", :id, "--memory",	"512"]
+				v.customize	["modifyvm", :id, "--memory",	"2048"]
 		end
 end
